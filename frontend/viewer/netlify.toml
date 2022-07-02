@@ -2,7 +2,7 @@
   base = "/frontend/viewer"
 
   # next exportの出力先
-  publish = "out/"
+  publish = "out"
 
   # next buildからのnext exportでファイル生成
   command = "npm run build && npm run export"
