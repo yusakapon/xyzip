@@ -47,7 +47,7 @@ export default function Home() {
         <Card title="Where does it come from?">Contrary to popular belief, Lorem Ipsum is not simply random text.</Card>
         <Card title="Where can I get some?">
           There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some form, by injected humour, or randomised words which don't look even slightly believable.
+          some form, by injected humour, or randomised words which don&apos;t look even slightly believable.
         </Card>
         <Card title="What is Lorem Ipsum?">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
