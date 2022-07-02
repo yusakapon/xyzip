@@ -1,0 +1,16 @@
+[build]
+  base = "/frontend/viewer"
+
+  # next exportの出力先
+  publish = "out/"
+
+  # next buildからのnext exportでファイル生成
+  command = "npm run build && npm run export"
+
+[context.production]
+  command = "NODE_ENV=production npm run build && npm run export"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
