@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -37,25 +38,51 @@ export default function Home() {
       <TheHeader />
 
       <main className={styles.cardWrap}>
-        <Card title="What is Lorem Ipsum?">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        </Card>
-        <Card title="Why do we use it?">
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking
-          at its layout.{' '}
-        </Card>
-        <Card title="Where does it come from?">Contrary to popular belief, Lorem Ipsum is not simply random text.</Card>
-        <Card title="Where can I get some?">
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some form, by injected humour, or randomised words which don&apos;t look even slightly believable.
-        </Card>
-        <Card title="What is Lorem Ipsum?">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-        </Card>
-        <Card title="Why do we use it?">
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking
-          at its layout.{' '}
-        </Card>
+        <Link href="/article">
+          <a>
+            <Card title="What is Lorem Ipsum?">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </Card>
+          </a>
+        </Link>
+        <Link href="/article">
+          <a>
+            <Card title="Why do we use it?">
+              It is a long established fact that a reader will be distracted by the readable content of a page when
+              looking at its layout.{' '}
+            </Card>
+          </a>
+        </Link>
+        <Link href="/article">
+          <a>
+            <Card title="Where does it come from?">
+              Contrary to popular belief, Lorem Ipsum is not simply random text.
+            </Card>
+          </a>
+        </Link>
+        <Link href="/article">
+          <a>
+            <Card title="Where can I get some?">
+              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
+              in some form, by injected humour, or randomised words which don&apos;t look even slightly believable.
+            </Card>
+          </a>
+        </Link>
+        <Link href="/article">
+          <a>
+            <Card title="What is Lorem Ipsum?">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </Card>
+          </a>
+        </Link>
+        <Link href="/article">
+          <a>
+            <Card title="Why do we use it?">
+              It is a long established fact that a reader will be distracted by the readable content of a page when
+              looking at its layout.{' '}
+            </Card>
+          </a>
+        </Link>
       </main>
 
       <footer className={styles.footer}>Powered by xyzip</footer>
