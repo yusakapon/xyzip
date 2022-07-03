@@ -1,10 +1,71 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
+import Modal from 'react-modal';
 import styles from '../styles/Home.module.css';
 
 import TheHeader from '../components/TheHeader';
 
+// スタイリング
+const customStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    maxWidth: '600px',
+    height: '300px',
+    transform: 'translate(-50%, -50%)',
+    zIndex: 200,
+  },
+};
+
 export default function article() {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [chip, setChip] = useState(0);
+  const [isConnectWallet, setConnectWallet] = useState(false);
+
+  const handleChange = event => {
+    setChip(event.target.value);
+  };
+
+  const reactionUnit = () => {
+    if (isConnectWallet) {
+      return (
+        <div className={styles.modalInner}>
+          <button className={styles.reactionBtn}>Send Reaction</button>
+          <div className={styles.modalTip}>
+            <p className={styles.modalChip}>
+              <input type="number" value={chip} onChange={handleChange} /> MATIC
+            </p>
+            <button className={styles.donateBtn}>Give a tip</button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.modalConectWallet}>
+          <p className={styles.modalInnerMsg}>
+            Please connect wallet
+            <br />
+            to deliver reactions to the author.
+          </p>
+          <button className={styles.connectWalletBtn} onClick={() => setConnectWallet(true)}>
+            Connect Wallet
+          </button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -50,15 +111,22 @@ export default function article() {
         </div>
 
         <nav className={styles.reactionUnit}>
-          <button className={styles.connectWalletBtn}>Connect Wallet</button>
-        </nav>
-        <nav className={styles.reactionUnit}>
-          <button className={styles.reactionBtn}>Make Some Noise 👏</button>
-          <button className={styles.donateBtn}>Donate 💵</button>
+          <button className={styles.addReactionBtn} onClick={() => setIsOpen(true)}>
+            Add Reaction
+          </button>
         </nav>
       </main>
 
       <footer className={styles.footer}>Powered by xyzip</footer>
+
+      <Modal isOpen={modalIsOpen} style={customStyles}>
+        {reactionUnit()}
+        <div className={styles.modalFooter}>
+          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+            Close x
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 // import Logo from './LogoTypeA.svg';
+import styles from '../styles/Home.module.css';
 
 export default function TheHeader({}) {
   return (

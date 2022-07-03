@@ -168,18 +168,103 @@
 }
 
 .connectWalletBtn,
-.reactionBtn,
-.donateBtn {
+.addReactionBtn,
+.donateBtn,
+.closeBtn,
+.reactionBtn {
   background: linear-gradient(to right, rgb(160, 235, 235), rgb(121, 206, 231)) border-box border-box;
   border: none;
   border-radius: 5em;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.14);
+  cursor: pointer;
   margin-bottom: 0.5rem;
   color: #fff;
   font-size: 1rem;
   font-weight: bold;
   padding: 1rem 2rem;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  transition: all 800ms;
+}
+.connectWalletBtn:hover,
+.addReactionBtn:hover,
+.donateBtn:hover {
+  background: linear-gradient(to right, rgb(131, 196, 196), rgb(95, 164, 185)) border-box border-box;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.28);
+  transition: all 200ms;
+}
+
+.reactionBtn {
+  background: linear-gradient(to right, rgb(128, 201, 223), rgb(204, 158, 235)) border-box border-box;
+  padding: 1rem 4rem;
+}
+.reactionBtn:hover {
+  background: linear-gradient(to right, rgb(109, 171, 190), rgb(180, 138, 207)) border-box border-box;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.28);
+  transition: all 200ms;
+}
+
+.closeBtn {
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  color: rgb(148, 148, 148);
+  text-shadow: none;
+}
+.closeBtn:hover {
+  background: rgb(212, 211, 211);
+}
+
+.donateBtn {
+  max-height: 50px;
+}
+
+.modalInner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.modalTip,
+.modalConectWallet {
+  align-items: center;
+  display: flex;
+  padding: 0rem;
+  max-width: 400px;
+  margin: 0.5rem auto;
+}
+.modalTip {
+  width: 100%;
+}
+.modalConectWallet {
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem 2rem 2rem;
+  text-align: center;
+  margin: 1rem auto;
+}
+.modalInnerMsg {
+  display: inline-block;
+  color: rgb(148, 148, 148);
+  font-size: 1rem;
+  width: 100%;
+}
+.modalChip {
+  margin-right: 1rem;
+  padding: 1rem;
+}
+.modalChip input {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 6rem;
+  padding: 0.5rem;
+}
+.modalFooter {
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
