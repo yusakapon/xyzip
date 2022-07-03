@@ -2,7 +2,7 @@
 xyzip
 
 #About project：
-  - By Converting information on articles, reactions to articles, and tips to NFT
+  - Converting articles, reactions and tips to the articlest to NFT
   - Articles can be generated without worrying about the termination or censorship of centralized content platforms.
   - Characterized by the ability to convert even reaction information to content to NFT
 
