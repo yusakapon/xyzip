@@ -4,6 +4,29 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
+// @::::::@@@@@@:::::-@@@::::::@@@@@@-::::-@@@@---------------@@@@@--------------@@@@@-----======@@@@@@
+// :::::::.@@@@:::::::@@::::::::@@@@::::::--@@-----------------@@@---------------=@@@================@@
+// ::::::::@@@@:::::::@@::::::::@@@@:::::---@@-----------------@@@----------------@@@=================@
+// ::::::::@@@@:::::::@@::::::::@@@@::::::--@@-----------------@@@----------------@@@=================@
+// ::::::::@@@@:::::::@@::::::::@@@@:::::---@@-----------------@@@----------------@@@==================
+// ::::::::@@@::::::::@@::::::::@@@@:::::---@@-----------------@@@----------------@@@==================
+// :::::::::@:::::::::@@::::::::@@@@:::::---@@-----------------@@@---------------@@@@==================
+// @::::::::::::::::::@@::::::::@@@@::::-:--@@@@@@@@@----------@@@@@@@--------@@@@@@@=======@@@@=======
+// @:::::::::::::::::@@@:::::::::@@@::::----@@@@@@@@----------@@@@@@@@-------=@@@@@@@=======@@@@=======
+// @@:::::::::::::::@@@@::::::::::@:::::---@@@@@@@@----------@@@@@@@@@--------@@@@@@@=======@@@@=======
+// @@@:::::::::::::-@@@@@:::::::::::::::---@@@@@@@-----------@@@@@@@@@-------=@@@@@@@=======@@@========
+// @@@:::::::::::::@@@@@@-:::::::::::::----@@@@@@----------=@@@@@@@@@@--------@@@@@@@==================
+// @@@::::::::::::::@@@@@@:::::::::::::---@@@@@@@----------@@@@@@@@@@@-------=@@@@@@@==================
+// @.::::::::::::::::@@@@@@::::::::::::-:@@@@@@@----------@@@@@@@@@@@@--------@@@@@@@=================@
+// @::::::::::::::::::@@@@@@:::::::::::-@@@@@@@----------@@@@@@@@@@@@@--------@@@@@@@=================@
+// :::::::::@:::::::::@@@@@@-:::::::::-:@@@@@@----------@@@@@@@@@@@@@@--------@@@@@@@================@@
+// ::::::::@@@::::::::@@@@@@@::::::::::@@@@@@:-----------------@@@------------===@@@@============@@@@@@
+// ::::::::@@@@:::::::@@@@@@@@::::::::@@@@@@@:------------------@@--------------==@@@=======@@@@@@@@@@@
+// ::::::::@@@@:::::::@@@@@@@@::::::::@@@@@@@-------------------@@-------------===@@@=======@@@@@@@@@@@
+// ::::::::@@@@:::::::@@@@@@@@::::::::@@@@@@@-------------------@@------------=-==@@@=======@@@@@@@@@@@
+// ::::::::@@@@:::::::@@@@@@@@::::::::@@@@@@@-------------------@@--------------==@@@=======@@@@@@@@@@@
+// :::::::.@@@@:::::::@@@@@@@@:::::::-@@@@@@@-------------------@@--------------==@@@=======@@@@@@@@@@@
+
 contract XYZIP is Context, ERC721Enumerable {
     uint256 public nextTokenId = 1;
 
@@ -13,7 +36,7 @@ contract XYZIP is Context, ERC721Enumerable {
     mapping(uint256 => string) private descriptionMapping;
 
     mapping(uint256 => address[]) private reactorMapping;
-    mapping(uint256 => uint256) private donatedMapping;
+    mapping(uint256 => uint256) private receivedMapping;
 
     constructor()
         ERC721("XYZIP", "XYZ")
@@ -29,11 +52,11 @@ contract XYZIP is Context, ERC721Enumerable {
         return tokenId;
     }
 
-    function react(uint256 tokenId) external payable {
+    function addReact(uint256 tokenId) external payable {
         address reactor = msg.sender;
 
         reactorMapping[tokenId].push(reactor);
-        donatedMapping[tokenId] += msg.value;
+        receivedMapping[tokenId] += msg.value;
 
         payable(ownerOf(tokenId)).transfer(msg.value);
         
@@ -73,39 +96,24 @@ contract XYZIP is Context, ERC721Enumerable {
         return arrayMemory;
     }
 
-    function getDonated(uint256 tokenId) public view returns (uint256) {
-        return donatedMapping[tokenId];
+    function getReceived(uint256 tokenId) public view returns (uint256) {
+        return receivedMapping[tokenId];
     }
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_exists(tokenId), "The token ID does not exist.");
 
-        uint donatedEth100 = getDonated(tokenId) * 100 / 1 ether;
-        uint donatedEth1 = donatedEth100 / 100;
-        uint donatedEth2 = (donatedEth100 - donatedEth1 * 100) / 10;
-        uint donatedEth3 = donatedEth100 - donatedEth2 * 10;
+        uint receivedEth100 = getReceived(tokenId) * 100 / 1 ether;
+        uint receivedEth1 = receivedEth100 / 100;
+        uint receivedEth2 = (receivedEth100 - receivedEth1 * 100) / 10;
+        uint receivedEth3 = receivedEth100 - receivedEth2 * 10;
 
-        string memory svg = getSVG(tokenId);
-        bytes memory json = abi.encodePacked(
-            '{"name": "',getTitle(tokenId),
-            '", "description": "',getDescription(tokenId),
-            '", "author": "',getAuthor(tokenId),
-            '", "content": "',getContentUrl(tokenId),
-            '", "image": "data:image/svg+xml;base64,',Base64.encode(bytes(svg)),
-            '", "attributes": [{"trait_type": "reaction","value": "',Strings.toString(getReactorCount(tokenId)),
-            '"},{"trait_type": "donated","value": "',Strings.toString(donatedEth1),'.',Strings.toString(donatedEth2),Strings.toString(donatedEth3),
-            '"}]}'
-        );
+        string memory svg = _getSVG(tokenId, receivedEth1, receivedEth2, receivedEth3);
 
-        return string(abi.encodePacked("data:application/json;base64,", Base64.encode(json)));
+        return _getJson(tokenId, svg, receivedEth1, receivedEth2, receivedEth3);
     }
 
-    function getSVG(uint256 tokenId) private view returns (string memory) {
-        uint donatedEth100 = getDonated(tokenId) * 100 / 1 ether;
-        uint donatedEth1 = donatedEth100 / 100;
-        uint donatedEth2 = (donatedEth100 - donatedEth1 * 100) / 10;
-        uint donatedEth3 = donatedEth100 - donatedEth2 * 10;
-
+    function _getSVG(uint256 tokenId, uint receivedEth1, uint receivedEth2, uint receivedEth3) private view returns (string memory) {
         return
             string(
                 abi.encodePacked(
@@ -121,11 +129,28 @@ contract XYZIP is Context, ERC721Enumerable {
                     '<text x="10%" y="60%" font-size="32px">Reaction: ',
                     Strings.toString(getReactorCount(tokenId)),
                     '</text>',
-                    '<text x="10%" y="70%" font-size="32px">Donate:  ',
-                    Strings.toString(donatedEth1),'.',Strings.toString(donatedEth2),Strings.toString(donatedEth3),
+                    '<text x="10%" y="70%" font-size="32px">Tips: ',
+                    Strings.toString(receivedEth1),'.',Strings.toString(receivedEth2),Strings.toString(receivedEth3),' MATIC',
                     "</text></svg>"
                 )
             );
+    }
+
+    function _getJson(uint256 tokenId, string memory svg, uint receivedEth1, uint receivedEth2, uint receivedEth3) private view returns (string memory) {
+
+        bytes memory json = abi.encodePacked(
+            '{"name": "',getTitle(tokenId),
+            '", "description": "',getDescription(tokenId),
+            '", "author": "',getAuthor(tokenId),
+            '", "image": "data:image/svg+xml;base64,',Base64.encode(bytes(svg)),
+            '", "attributes": [{"trait_type": "reaction","value": "',Strings.toString(getReactorCount(tokenId)),
+            '"},{"trait_type": "received","value": "',Strings.toString(receivedEth1),'.',Strings.toString(receivedEth2),Strings.toString(receivedEth3),
+            '"},{"trait_type": "contents","value": "',getContentUrl(tokenId),
+            '"}]}'
+        );
+
+        return string(abi.encodePacked("data:application/json;base64,", Base64.encode(json)));
+        
     }
 
 }
