@@ -27,8 +27,10 @@
 ## The link of smart contract on polygon（スマートコントラクトのPolygonリンク）
   - `https://mumbai.polygonscan.com/address/0xBd7eC4F82D02E8E4fA20F97de68Bd0036a3a8083`
 ## Problem we faced（直面した課題）
-  - Idea generation began after the presentation of the hackathon evaluation criteria, and implementation began at 6:00 p.m. on the second day.
-  - The implementation members were familiar with web2, but this was the first time for them to implement a web3 product.
-  - With little time to spare, they completed the implementation of the core functionality of the contract and part of the front-end implementation.
+  - Build in limited time
+    - Idea generation began after the presentation of the hackathon evaluation criteria, and implementation began at 6:00 p.m. on the second day.
+    - The implementation members were familiar with web2, but this was the first time for them to implement a web3 product.
+    - With little time to spare, they completed the implementation of the core functionality of the contract and part of the front-end implementation.
+  - The mumbai network was congested, making it difficult to check operation and create a demo.
 
 
