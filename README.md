@@ -8,7 +8,7 @@
   - Authors can write ther aritcles without worrying about the termination or censorship of centralized content platforms.
   - Characterized by the ability to convert even reaction information to content to NFT
     - The reaction information is managed on-chain and dynamically incorporated into the NFT image.
- 
+  - `https://testnets.opensea.io/assets/mumbai/0xbd7ec4f82d02e8e4fa20f97de68bd0036a3a8083/1`
 <img width="515" alt="スクリーンショット 2022-07-03 14 23 10" src="https://user-images.githubusercontent.com/57611745/177026117-c2cced75-865c-4a6a-a69f-2f2544954c6f.png">
 <img width="518" alt="スクリーンショット 2022-07-03 14 30 49" src="https://user-images.githubusercontent.com/57611745/177026333-e8cc8295-1cfb-4e6f-906f-7335dce2e564.png">
 
